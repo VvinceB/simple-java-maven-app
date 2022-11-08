@@ -1,9 +1,9 @@
 pipeline {
-    agent {
-        docker {
-            image 'maven:3-alpine'
-        }
+  agent {
+    kubernetes {
+      yamlFile 'agents/KubernetesPod.yaml'
     }
+  }
     stages {
         stage('Build') { 
             steps {
