@@ -1,13 +1,15 @@
 pipeline {
-    agent {
-        docker {
-            image 'maven:3-alpine'
-        }
+  agent {
+    kubernetes {
+      yamlFile 'agents/KubernetesPod.yaml'
     }
+  }
     stages {
         stage('Build') { 
-            steps {
-                sh 'mvn -B -DskipTests clean package' 
+            container('maven') {
+                steps {
+                     sh 'mvn -B -DskipTests clean package' 
+                }
             }
         }
     }
